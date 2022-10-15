@@ -99,11 +99,7 @@ class TennisGame1 implements TennisGame
             return $this->advantage($minusResult);
         }
 
-        if ($minusResult >= 2) {
-            return "Win for player1";
-        }
-
-        return "Win for player2";
+        return $this->win($minusResult);
 
     }
 
@@ -114,5 +110,15 @@ class TennisGame1 implements TennisGame
         }
 
         return "Advantage player2";
+    }
+
+
+    public function win(int $minusResult): string
+    {
+        if ($minusResult >= 2) {
+            return "Win for player1";
+        }
+
+        return "Win for player2";
     }
 }
