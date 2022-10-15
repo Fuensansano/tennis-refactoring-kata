@@ -43,7 +43,7 @@ class TennisGame1 implements TennisGame
 
     private function deuce(): string
     {
-        return match($this->m_score1) {
+        return match ($this->m_score1) {
             0 => "Love-All",
             1 => "Fifteen-All",
             2 => "Thirty-All",
@@ -89,14 +89,11 @@ class TennisGame1 implements TennisGame
 
     public function printScoreByPlayer($scorePlayer): string
     {
-        switch ($scorePlayer) {
-            case 0:
-                return "Love";
-            case 1:
-                return "Fifteen";
-            case 2:
-                return "Thirty";
-        }
-        return "Forty";
+        return match ($scorePlayer) {
+            0 => "Love",
+            1 => "Fifteen",
+            2 => "Thirty",
+            default => "Forty",
+        };
     }
 }
