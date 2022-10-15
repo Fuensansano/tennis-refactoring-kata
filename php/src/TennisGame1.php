@@ -43,7 +43,7 @@ class TennisGame1 implements TennisGame
             return $this->win($minusResult);
         }
 
-        return $this->printScoreByPlayer($this->m_score1) . '-' . $this->printScoreByPlayer($this->m_score2);
+        return $this->getScoreByPlayer($this->m_score1) . '-' . $this->getScoreByPlayer($this->m_score2);
     }
 
     private function deuce(): string
@@ -64,8 +64,6 @@ class TennisGame1 implements TennisGame
 
     private function advantage($minusResult): string
     {
-        // TODO: Enumerado de estados de clase
-        // TODO: Sustituir player string por constante
         if ($minusResult == self::ADVANTAGE_POINT) {
             return GameStatus::ADVANTAGE->value . ' ' . $this->player1Name;
         }
@@ -74,8 +72,6 @@ class TennisGame1 implements TennisGame
 
     public function win(int $minusResult): string
     {
-        // TODO: Enumerado de estados de clase
-        // TODO: Replantear el número magico
         if ($minusResult >= 2) {
             return GameStatus::WIN->value . ' for ' . $this->player1Name;
         }
@@ -84,11 +80,9 @@ class TennisGame1 implements TennisGame
 
     }
 
-
-    // TODO: repensar el nombre del método
-    public function printScoreByPlayer($scorePlayer): string
+    public function getScoreByPlayer($playerScore): string
     {
-        return match ($scorePlayer) {
+        return match ($playerScore) {
             0 => Point::LOVE->value,
             1 => Point::FIFTEEN->value,
             2 => Point::THIRTY->value,
