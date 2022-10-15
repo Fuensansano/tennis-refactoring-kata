@@ -29,4 +29,9 @@ class Player
     {
         $this->score++;
     }
+
+    public function isDeuce(Player $otherPlayer) : bool
+    {
+        return true;
+    }
 }

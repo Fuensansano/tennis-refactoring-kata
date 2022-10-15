@@ -53,4 +53,9 @@ class PlayerTest extends TestCase
         yield [ 25 ];
         yield [ 50 ];
     }
+
+    public function test_player_should_know_if_is_deuce()
+    {
+        $this->assertTrue($this->player->isDeuce(new Player(self::A_RANDOM_PLAYER_NAME)));
+    }
 }

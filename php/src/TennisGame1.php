@@ -7,8 +7,6 @@ class TennisGame1 implements TennisGame
 {
     const MIN_POINTS_TO_WIN = 4;
     const ADVANTAGE_POINT = 1;
-    private $m_score1 = 0;
-    private $m_score2 = 0;
     private $player1;
     private $player2;
 
@@ -21,22 +19,24 @@ class TennisGame1 implements TennisGame
     public function wonPoint($playerName)
     {
         if ($this->player1->name() == $playerName) {
-            $this->m_score1++;
+            $this->player1->increaseScore();
             return;
         }
 
-        $this->m_score2++;
+        $this->player2->increaseScore();
 
     }
 
     public function getScore()
     {
+        //TODO: Test isDeuce()
         if ($this->isDeuce()) {
             return $this->deuce();
         }
 
+        //TODO hasAdvantageorWin
         if ($this->hasAdvantageOrWin()) {
-            $minusResult = $this->m_score1 - $this->m_score2;
+            $minusResult = $this->player1->score() - $this->player2->score();
             if ($this->hasAdvantage($minusResult)) {
                 return $this->advantage($minusResult);
             }
@@ -44,12 +44,12 @@ class TennisGame1 implements TennisGame
             return $this->win($minusResult);
         }
 
-        return $this->getScoreByPlayer($this->m_score1) . '-' . $this->getScoreByPlayer($this->m_score2);
+        return $this->getScoreByPlayer($this->player1->score()) . '-' . $this->getScoreByPlayer($this->player2->score());
     }
 
     private function deuce(): string
     {
-        return match ($this->m_score1) {
+        return match ($this->player1->score()) {
             0 => Point::LOVE->value . '-' . GameStatus::ALL->value,
             1 => Point::FIFTEEN->value . '-' . GameStatus::ALL->value,
             2 => Point::THIRTY->value . '-' . GameStatus::ALL->value,
@@ -60,7 +60,7 @@ class TennisGame1 implements TennisGame
 
     private function isDeuce(): bool
     {
-        return $this->m_score1 == $this->m_score2;
+        return $this->player1->score() == $this->player2->score();
     }
 
     private function advantage($minusResult): string
@@ -94,7 +94,7 @@ class TennisGame1 implements TennisGame
 
     private function hasAdvantageOrWin(): bool
     {
-        return $this->m_score1 >= self::MIN_POINTS_TO_WIN || $this->m_score2 >= self::MIN_POINTS_TO_WIN;
+        return $this->player1->score() >= self::MIN_POINTS_TO_WIN || $this->player2->score() >= self::MIN_POINTS_TO_WIN;
     }
 
 
