@@ -30,7 +30,7 @@ class TennisGame1 implements TennisGame
     public function getScore()
     {
         $score = "";
-        if ($this->m_score1 == $this->m_score2) {
+        if ($this->isDeuce()) {
             return $this->deuce();
         }
 
@@ -90,5 +90,11 @@ class TennisGame1 implements TennisGame
                 break;
         }
         return $score;
+    }
+
+
+    private function isDeuce(): bool
+    {
+        return $this->m_score1 == $this->m_score2;
     }
 }
