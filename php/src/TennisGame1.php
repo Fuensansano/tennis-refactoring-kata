@@ -4,7 +4,6 @@ namespace TennisGame;
 
 class TennisGame1 implements TennisGame
 {
-    const PLAYER_1 = 'player1';
     const MIN_POINTS_TO_WIN = 4;
     const ADVANTAGE_POINT = 1;
     private $m_score1 = 0;
@@ -20,7 +19,7 @@ class TennisGame1 implements TennisGame
 
     public function wonPoint($playerName)
     {
-        if (self::PLAYER_1 == $playerName) {
+        if ($this->player1Name == $playerName) {
             $this->m_score1++;
             return;
         }
@@ -50,10 +49,10 @@ class TennisGame1 implements TennisGame
     private function deuce(): string
     {
         return match ($this->m_score1) {
-            0 => Point::LOVE->value . '-All',
-            1 => Point::FIFTEEN->value . '-All',
-            2 => Point::THIRTY->value . '-All',
-            default => "Deuce"
+            0 => Point::LOVE->value . '-' . GameStatus::ALL->value,
+            1 => Point::FIFTEEN->value . '-' . GameStatus::ALL->value,
+            2 => Point::THIRTY->value . '-' . GameStatus::ALL->value,
+            default => GameStatus::DEUCE->value,
         };
     }
 
@@ -67,11 +66,10 @@ class TennisGame1 implements TennisGame
     {
         // TODO: Enumerado de estados de clase
         // TODO: Sustituir player string por constante
-        // TODO: Replantear el número magico
         if ($minusResult == self::ADVANTAGE_POINT) {
-            return "Advantage player1";
+            return GameStatus::ADVANTAGE->value . ' ' . $this->player1Name;
         }
-        return "Advantage player2";
+        return GameStatus::ADVANTAGE->value . ' ' . $this->player2Name;
     }
 
     public function win(int $minusResult): string
@@ -79,9 +77,11 @@ class TennisGame1 implements TennisGame
         // TODO: Enumerado de estados de clase
         // TODO: Replantear el número magico
         if ($minusResult >= 2) {
-            return "Win for player1";
+            return GameStatus::WIN->value . ' for ' . $this->player1Name;
         }
-        return "Win for player2";
+
+        return GameStatus::WIN->value . ' for ' . $this->player2Name;
+
     }
 
 
