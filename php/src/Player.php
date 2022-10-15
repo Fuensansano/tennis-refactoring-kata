@@ -17,4 +17,9 @@ class Player
     {
         return $this->name;
     }
+
+    public function score()
+    {
+        return 0;
+    }
 }
