@@ -30,7 +30,6 @@ class TennisGame1 implements TennisGame
 
     public function getScore()
     {
-        $score = "";
         if ($this->isDeuce()) {
             return $this->deuce();
         }
@@ -39,30 +38,20 @@ class TennisGame1 implements TennisGame
             return $this->advantageOrWin();
         }
 
-        $score = $this->printScoreByPlayer($this->m_score1) . '-' . $this->printScoreByPlayer($this->m_score2);
-
-        return $score;
+        return $this->printScoreByPlayer($this->m_score1) . '-' . $this->printScoreByPlayer($this->m_score2);
     }
 
-    private function deuce()
+    private function deuce(): string
     {
-        $score = "";
-
         switch ($this->m_score1) {
             case 0:
-                $score = "Love-All";
-                break;
+                return "Love-All";
             case 1:
-                $score = "Fifteen-All";
-                break;
+                return "Fifteen-All";
             case 2:
-                $score = "Thirty-All";
-                break;
-            default:
-                $score = "Deuce";
-                break;
+                return "Thirty-All";
         }
-        return $score;
+        return "Deuce";
     }
 
 
@@ -81,7 +70,6 @@ class TennisGame1 implements TennisGame
         }
 
         return $this->win($minusResult);
-
     }
 
     private function advantage($minusResult): string
@@ -89,7 +77,6 @@ class TennisGame1 implements TennisGame
         if ($minusResult == 1) {
             return "Advantage player1";
         }
-
         return "Advantage player2";
     }
 
@@ -99,7 +86,6 @@ class TennisGame1 implements TennisGame
         if ($minusResult >= 2) {
             return "Win for player1";
         }
-
         return "Win for player2";
     }
 
