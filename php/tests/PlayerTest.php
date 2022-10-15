@@ -68,6 +68,10 @@ class PlayerTest extends TestCase
 
     public function test_a_player_has_advantage_or_has_win()
     {
+        $this->otherPlayer->increaseScore();
+        $this->otherPlayer->increaseScore();
+        $this->otherPlayer->increaseScore();
+        $this->otherPlayer->increaseScore();
         $this->assertTrue($this->player->hasAdvantageOrWin($this->otherPlayer));
     }
 

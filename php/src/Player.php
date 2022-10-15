@@ -7,6 +7,7 @@ namespace TennisGame;
 class Player
 {
 
+    const MIN_POINTS_TO_WIN = 4;
     private int $score = 0;
     private string $name;
 
@@ -37,6 +38,6 @@ class Player
 
     public function hasAdvantageOrWin($otherPlayer)
     {
-        return true;
+        return $this->score >= self::MIN_POINTS_TO_WIN || $otherPlayer->score() >= self::MIN_POINTS_TO_WIN;
     }
 }
