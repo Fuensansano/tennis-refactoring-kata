@@ -75,4 +75,43 @@ class PlayerTest extends TestCase
         $this->assertTrue($this->player->hasAdvantageOrWin($this->otherPlayer));
     }
 
+
+    /**
+     * @dataProvider provideNotEnoughPointsToAdvantageOrWin
+     */
+    public function test_given_that_no_player_has_reach_40_points_then_nobody_has_advantage_or_won(int $pointsPlayer, int $pointsOtherPlayer): void
+    {
+        for ($i = 0; $i < $pointsOtherPlayer; $i++){
+            $this->otherPlayer->increaseScore();
+        }
+
+        for ($i = 0; $i < $pointsPlayer; $i++){
+            $this->player->increaseScore();
+        }
+
+        $this->assertSame($pointsPlayer, $this->player->score());
+        $this->assertSame($pointsOtherPlayer, $this->otherPlayer->score());
+        $this->assertFalse($this->player->hasAdvantageOrWin($this->otherPlayer));
+    }
+
+    public function provideNotEnoughPointsToAdvantageOrWin(): \Generator
+    {
+        yield [ 0,0 ];
+        yield [ 0,1 ];
+        yield [ 0,2 ];
+        yield [ 0,3 ];
+        yield [ 0,1 ];
+        yield [ 1,0 ];
+        yield [ 2,0 ];
+        yield [ 3,0 ];
+        yield [ 1,1 ];
+        yield [ 1,2 ];
+        yield [ 1,3 ];
+        yield [ 2,1 ];
+        yield [ 2,2 ];
+        yield [ 2,3 ];
+        yield [ 3,1 ];
+        yield [ 3,2 ];
+        yield [ 3,3 ];
+    }
 }
