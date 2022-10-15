@@ -5,7 +5,8 @@ namespace TennisGame;
 class TennisGame1 implements TennisGame
 {
     const PLAYER_1 = 'player1';
-    const MAX_POINT = 4;
+    const MIN_POINTS_TO_WIN = 4;
+    const ADVANTAGE_POINT = 1;
     private $m_score1 = 0;
     private $m_score2 = 0;
     private $player1Name = '';
@@ -67,7 +68,7 @@ class TennisGame1 implements TennisGame
         // TODO: Enumerado de estados de clase
         // TODO: Sustituir player string por constante
         // TODO: Replantear el número magico
-        if ($minusResult == 1) {
+        if ($minusResult == self::ADVANTAGE_POINT) {
             return "Advantage player1";
         }
         return "Advantage player2";
@@ -98,12 +99,12 @@ class TennisGame1 implements TennisGame
 
     private function hasAdvantageOrWin(): bool
     {
-        return $this->m_score1 >= self::MAX_POINT || $this->m_score2 >= self::MAX_POINT;
+        return $this->m_score1 >= self::MIN_POINTS_TO_WIN || $this->m_score2 >= self::MIN_POINTS_TO_WIN;
     }
 
 
     private function hasAdvantage(int $minusResult): bool
     {
-        return $minusResult === 1 || $minusResult === -1;
+        return $minusResult === self::ADVANTAGE_POINT || $minusResult === -self::ADVANTAGE_POINT;
     }
 }
