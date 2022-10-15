@@ -24,4 +24,12 @@ class PlayerTest extends TestCase
         $player = new Player($name);
         $this->assertSame(0, $player->score());
     }
+
+    public function test_have_a_increment_score()
+    {
+        $name = 'Fuen';
+        $player = new Player($name);
+        $player->increaseScore();
+        $this->assertSame(1, $player->score());
+    }
 }

@@ -6,6 +6,7 @@ namespace TennisGame;
 class Player
 {
 
+    private int $score = 0;
     private string $name;
 
     public function __construct(string $name)
@@ -20,6 +21,11 @@ class Player
 
     public function score()
     {
-        return 0;
+        return $this->score;
+    }
+
+    public function increaseScore()
+    {
+        $this->score++;
     }
 }
