@@ -35,25 +35,22 @@ class TennisGame1 implements TennisGame
 
         //TODO hasAdvantageorWin
         if ($this->hasAdvantageOrWin()) {
-            $minusResult = $this->player1->score() - $this->player2->score();
+            $minusResult = $this->player1->scoreDifferent($this->player2);
             if ($this->hasAdvantage($minusResult)) {
                 return $this->advantage($minusResult);
             }
 
             return $this->win($minusResult);
         }
-
-        return $this->getScoreByPlayer($this->player1->score()) . '-' . $this->getScoreByPlayer($this->player2->score());
+        return $this->player1->printableScore() . '-' . $this->player2->printableScore();
     }
 
     private function deuce(): string
     {
-        return match ($this->player1->score()) {
-            0 => sprintf("%s-%s", Point::LOVE->value, GameStatus::ALL->value),
-            1 => sprintf("%s-%s", Point::FIFTEEN->value, GameStatus::ALL->value),
-            2 => sprintf("%s-%s", Point::THIRTY->value, GameStatus::ALL->value),
-            default => GameStatus::DEUCE->value,
-        };
+        if ($this->player1->printableScore() === Point::FORTY->value) {
+            return GameStatus::DEUCE->value;
+        }
+        return sprintf("%s-%s", $this->player1->printableScore(), GameStatus::ALL->value);
     }
 
 
@@ -79,17 +76,6 @@ class TennisGame1 implements TennisGame
         return sprintf("%s for %s", GameStatus::WIN->value, $this->player2->name());
 
     }
-
-    private function getScoreByPlayer($playerScore): string
-    {
-        return match ($playerScore) {
-            0 => Point::LOVE->value,
-            1 => Point::FIFTEEN->value,
-            2 => Point::THIRTY->value,
-            default => Point::FORTY->value,
-        };
-    }
-
 
     private function hasAdvantageOrWin(): bool
     {

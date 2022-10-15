@@ -6,6 +6,7 @@ namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use TennisGame\Player;
+use TennisGame\Point;
 
 class PlayerTest extends TestCase
 {
@@ -26,34 +27,13 @@ class PlayerTest extends TestCase
         $this->assertSame(self::A_RANDOM_PLAYER_NAME, $this->player->name());
     }
 
-    public function test_have_a_score()
-    {
-        $this->assertSame(0, $this->player->score());
-    }
 
     public function test_have_a_increment_score()
     {
         $this->player->increaseScore();
-        $this->assertSame(1, $this->player->score());
+        $this->assertSame(Point::FIFTEEN->value, $this->player->printableScore());
     }
 
-    /**
-     * @dataProvider provideTimesOfIncreaseScore
-     */
-    public function test_have_a_multiple_increments_to_the_score(int $timesToIncrease): void
-    {
-        for ($i = 0; $i < $timesToIncrease; $i++){
-            $this->player->increaseScore();
-        }
-        $this->assertSame($timesToIncrease, $this->player->score());
-    }
-
-    public function provideTimesOfIncreaseScore(): \Generator
-    {
-        yield [ 100 ];
-        yield [ 25 ];
-        yield [ 50 ];
-    }
 
     public function test_two_players_with_the_same_score_are_a_deuce()
     {
@@ -89,8 +69,6 @@ class PlayerTest extends TestCase
             $this->player->increaseScore();
         }
 
-        $this->assertSame($pointsPlayer, $this->player->score());
-        $this->assertSame($pointsOtherPlayer, $this->otherPlayer->score());
         $this->assertFalse($this->player->hasAdvantageOrWin($this->otherPlayer));
     }
 
@@ -114,4 +92,7 @@ class PlayerTest extends TestCase
         yield [ 3,2 ];
         yield [ 3,3 ];
     }
+
+
+
 }

@@ -21,23 +21,34 @@ class Player
         return $this->name;
     }
 
-    public function score()
-    {
-        return $this->score;
-    }
-
     public function increaseScore()
     {
         $this->score++;
     }
 
-    public function isDeuce(Player $otherPlayer) : bool
+    public function isDeuce(Player $otherPlayer): bool
     {
-        return $this->score === $otherPlayer->score();
+        return $this->score === $otherPlayer->score;
     }
 
     public function hasAdvantageOrWin($otherPlayer)
     {
-        return $this->score >= self::MIN_POINTS_TO_WIN || $otherPlayer->score() >= self::MIN_POINTS_TO_WIN;
+        return $this->score >= self::MIN_POINTS_TO_WIN || $otherPlayer->score >= self::MIN_POINTS_TO_WIN;
     }
+
+    public function printableScore(): string
+    {
+        return match ($this->score) {
+            0 => Point::LOVE->value,
+            1 => Point::FIFTEEN->value,
+            2 => Point::THIRTY->value,
+            default => Point::FORTY->value,
+        };
+    }
+
+    public function scoreDifferent($otherPlayer): int
+    {
+        return $this->score - $otherPlayer->score;
+    }
+
 }
