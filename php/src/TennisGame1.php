@@ -35,41 +35,22 @@ class TennisGame1 implements TennisGame
             return $this->deuce();
         }
 
-         if ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
-             $score = $this->advantageOrWin();
-         } else {
-            for ($i = 1; $i < 3; $i++) {
-                if ($i == 1) {
-                    $tempScore = $this->m_score1;
-                } else {
-                    $score .= "-";
-                    $tempScore = $this->m_score2;
-                }
-                switch ($tempScore) {
-                    case 0:
-                        $score .= "Love";
-                        break;
-                    case 1:
-                        $score .= "Fifteen";
-                        break;
-                    case 2:
-                        $score .= "Thirty";
-                        break;
-                    case 3:
-                        $score .= "Forty";
-                        break;
-                }
-            }
+        if ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
+            return $this->advantageOrWin();
         }
+
+        $score = $this->printScoreByPlayer($this->m_score1) . '-' . $this->printScoreByPlayer($this->m_score2);
+
         return $score;
     }
 
-    private function deuce() {
+    private function deuce()
+    {
         $score = "";
 
         switch ($this->m_score1) {
             case 0:
-                 $score = "Love-All";
+                $score = "Love-All";
                 break;
             case 1:
                 $score = "Fifteen-All";
@@ -120,5 +101,19 @@ class TennisGame1 implements TennisGame
         }
 
         return "Win for player2";
+    }
+
+
+    public function printScoreByPlayer($scorePlayer): string
+    {
+        switch ($scorePlayer) {
+            case 0:
+                return "Love";
+            case 1:
+                return "Fifteen";
+            case 2:
+                return "Thirty";
+        }
+        return "Forty";
     }
 }
