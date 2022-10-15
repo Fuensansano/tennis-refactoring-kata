@@ -5,6 +5,7 @@ namespace TennisGame;
 class TennisGame1 implements TennisGame
 {
     const PLAYER_1 = 'player1';
+    const MAX_POINT = 4;
     private $m_score1 = 0;
     private $m_score2 = 0;
     private $player1Name = '';
@@ -18,7 +19,6 @@ class TennisGame1 implements TennisGame
 
     public function wonPoint($playerName)
     {
-
         if (self::PLAYER_1 == $playerName) {
             $this->m_score1++;
             return;
@@ -34,8 +34,13 @@ class TennisGame1 implements TennisGame
             return $this->deuce();
         }
 
-        if ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
-            return $this->advantageOrWin();
+        if ($this->hasAdvantageOrWin()) {
+            $minusResult = $this->m_score1 - $this->m_score2;
+            if ($this->hasAdvantage($minusResult)) {
+                return $this->advantage($minusResult);
+            }
+
+            return $this->win($minusResult);
         }
 
         return $this->printScoreByPlayer($this->m_score1) . '-' . $this->printScoreByPlayer($this->m_score2);
@@ -57,29 +62,21 @@ class TennisGame1 implements TennisGame
         return $this->m_score1 == $this->m_score2;
     }
 
-
-    public function advantageOrWin(): string
-    {
-        $minusResult = $this->m_score1 - $this->m_score2;
-
-        if ($minusResult === 1 || $minusResult === -1) {
-            return $this->advantage($minusResult);
-        }
-
-        return $this->win($minusResult);
-    }
-
     private function advantage($minusResult): string
     {
+        // TODO: Enumerado de estados de clase
+        // TODO: Sustituir player string por constante
+        // TODO: Replantear el número magico
         if ($minusResult == 1) {
             return "Advantage player1";
         }
         return "Advantage player2";
     }
 
-
     public function win(int $minusResult): string
     {
+        // TODO: Enumerado de estados de clase
+        // TODO: Replantear el número magico
         if ($minusResult >= 2) {
             return "Win for player1";
         }
@@ -87,6 +84,7 @@ class TennisGame1 implements TennisGame
     }
 
 
+    // TODO: repensar el nombre del método
     public function printScoreByPlayer($scorePlayer): string
     {
         return match ($scorePlayer) {
@@ -95,5 +93,17 @@ class TennisGame1 implements TennisGame
             2 => Point::THIRTY->value,
             default => Point::FORTY->value,
         };
+    }
+
+
+    private function hasAdvantageOrWin(): bool
+    {
+        return $this->m_score1 >= self::MAX_POINT || $this->m_score2 >= self::MAX_POINT;
+    }
+
+
+    private function hasAdvantage(int $minusResult): bool
+    {
+        return $minusResult === 1 || $minusResult === -1;
     }
 }
