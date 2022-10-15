@@ -5,7 +5,6 @@ namespace TennisGame;
 
 class TennisGame1 implements TennisGame
 {
-    const MIN_POINTS_TO_WIN = 4;
     const ADVANTAGE_POINT = 1;
     private $player1;
     private $player2;
@@ -94,7 +93,7 @@ class TennisGame1 implements TennisGame
 
     private function hasAdvantageOrWin(): bool
     {
-        return $this->player1->score() >= self::MIN_POINTS_TO_WIN || $this->player2->score() >= self::MIN_POINTS_TO_WIN;
+        return $this->player1->hasAdvantageOrWin($this->player2);
     }
 
 
