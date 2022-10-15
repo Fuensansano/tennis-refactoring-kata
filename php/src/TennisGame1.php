@@ -4,6 +4,7 @@ namespace TennisGame;
 
 class TennisGame1 implements TennisGame
 {
+    const PLAYER_1 = 'player1';
     private $m_score1 = 0;
     private $m_score2 = 0;
     private $player1Name = '';
@@ -18,7 +19,7 @@ class TennisGame1 implements TennisGame
     public function wonPoint($playerName)
     {
 
-        if ('player1' == $playerName) {
+        if (self::PLAYER_1 == $playerName) {
             $this->m_score1++;
             return;
         }
