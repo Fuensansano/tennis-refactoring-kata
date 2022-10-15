@@ -9,7 +9,7 @@ use TennisGame\Player;
 
 class PlayerTest extends TestCase
 {
-
+    private Player $otherPlayer;
     private Player $player;
     public const A_RANDOM_PLAYER_NAME = 'A_RANDOM_PLAYER_NAME';
 
@@ -17,6 +17,7 @@ class PlayerTest extends TestCase
     {
         parent::setUp();
         $this->player = new Player(self::A_RANDOM_PLAYER_NAME);
+        $this->otherPlayer = new Player(self::A_RANDOM_PLAYER_NAME);
     }
 
     public function test_create_player_with_a_name()
@@ -61,16 +62,13 @@ class PlayerTest extends TestCase
 
     public function test_two_player_should_have_a_different_score()
     {
-        $otherPlayer = new Player(self::A_RANDOM_PLAYER_NAME);
-        $otherPlayer->increaseScore();
-        $this->assertFalse($this->player->isDeuce($otherPlayer));
+        $this->otherPlayer->increaseScore();
+        $this->assertFalse($this->player->isDeuce($this->otherPlayer));
     }
 
     public function test_a_player_has_advantage_or_has_win()
     {
-        $otherPlayer = new Player(self::A_RANDOM_PLAYER_NAME);
-        $this->assertTrue($this->player->hasAdvantageOrWin($otherPlayer));
-
+        $this->assertTrue($this->player->hasAdvantageOrWin($this->otherPlayer));
     }
 
 }

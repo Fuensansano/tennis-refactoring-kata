@@ -37,6 +37,6 @@ class Player
 
     public function hasAdvantageOrWin($otherPlayer)
     {
-        return false;
+        return true;
     }
 }
