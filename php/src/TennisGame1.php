@@ -17,32 +17,24 @@ class TennisGame1 implements TennisGame
 
     public function wonPoint($playerName)
     {
+
         if ('player1' == $playerName) {
             $this->m_score1++;
-        } else {
-            $this->m_score2++;
+            return;
         }
+
+        $this->m_score2++;
+
     }
 
     public function getScore()
     {
         $score = "";
         if ($this->m_score1 == $this->m_score2) {
-            switch ($this->m_score1) {
-                case 0:
-                    $score = "Love-All";
-                    break;
-                case 1:
-                    $score = "Fifteen-All";
-                    break;
-                case 2:
-                    $score = "Thirty-All";
-                    break;
-                default:
-                    $score = "Deuce";
-                    break;
-            }
-        } elseif ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
+            return $this->deuce();
+        }
+
+         if ($this->m_score1 >= 4 || $this->m_score2 >= 4) {
             $minusResult = $this->m_score1 - $this->m_score2;
             if ($minusResult == 1) {
                 $score = "Advantage player1";
@@ -76,6 +68,26 @@ class TennisGame1 implements TennisGame
                         break;
                 }
             }
+        }
+        return $score;
+    }
+
+    private function deuce() {
+        $score = "";
+
+        switch ($this->m_score1) {
+            case 0:
+                 $score = "Love-All";
+                break;
+            case 1:
+                $score = "Fifteen-All";
+                break;
+            case 2:
+                $score = "Thirty-All";
+                break;
+            default:
+                $score = "Deuce";
+                break;
         }
         return $score;
     }
