@@ -8,18 +8,18 @@ class TennisGame1 implements TennisGame
     const ADVANTAGE_POINT = 1;
     private $m_score1 = 0;
     private $m_score2 = 0;
-    private $player1Name = '';
-    private $player2Name = '';
+    private $player1;
+    private $player2;
 
     public function __construct($player1Name, $player2Name)
     {
-        $this->player1Name = $player1Name;
-        $this->player2Name = $player2Name;
+        $this->player1 = new Player($player1Name);
+        $this->player2 = new Player($player2Name);
     }
 
     public function wonPoint($playerName)
     {
-        if ($this->player1Name == $playerName) {
+        if ($this->player1->name() == $playerName) {
             $this->m_score1++;
             return;
         }
@@ -65,18 +65,18 @@ class TennisGame1 implements TennisGame
     private function advantage($minusResult): string
     {
         if ($minusResult == self::ADVANTAGE_POINT) {
-            return GameStatus::ADVANTAGE->value . ' ' . $this->player1Name;
+            return GameStatus::ADVANTAGE->value . ' ' . $this->player1->name();
         }
-        return GameStatus::ADVANTAGE->value . ' ' . $this->player2Name;
+        return GameStatus::ADVANTAGE->value . ' ' . $this->player2->name();
     }
 
     public function win(int $minusResult): string
     {
         if ($minusResult >= 2) {
-            return GameStatus::WIN->value . ' for ' . $this->player1Name;
+            return GameStatus::WIN->value . ' for ' . $this->player1->name();
         }
 
-        return GameStatus::WIN->value . ' for ' . $this->player2Name;
+        return GameStatus::WIN->value . ' for ' . $this->player2->name();
 
     }
 
