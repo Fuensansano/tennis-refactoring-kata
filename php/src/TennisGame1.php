@@ -43,15 +43,12 @@ class TennisGame1 implements TennisGame
 
     private function deuce(): string
     {
-        switch ($this->m_score1) {
-            case 0:
-                return "Love-All";
-            case 1:
-                return "Fifteen-All";
-            case 2:
-                return "Thirty-All";
-        }
-        return "Deuce";
+        return match($this->m_score1) {
+            0 => "Love-All",
+            1 => "Fifteen-All",
+            2 => "Thirty-All",
+            default => "Deuce"
+        };
     }
 
 
