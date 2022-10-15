@@ -44,9 +44,9 @@ class TennisGame1 implements TennisGame
     private function deuce(): string
     {
         return match ($this->m_score1) {
-            0 => "Love-All",
-            1 => "Fifteen-All",
-            2 => "Thirty-All",
+            0 => Point::LOVE->value . '-All',
+            1 => Point::FIFTEEN->value . '-All',
+            2 => Point::THIRTY->value . '-All',
             default => "Deuce"
         };
     }
@@ -90,10 +90,10 @@ class TennisGame1 implements TennisGame
     public function printScoreByPlayer($scorePlayer): string
     {
         return match ($scorePlayer) {
-            0 => "Love",
-            1 => "Fifteen",
-            2 => "Thirty",
-            default => "Forty",
+            0 => Point::LOVE->value,
+            1 => Point::FIFTEEN->value,
+            2 => Point::THIRTY->value,
+            default => Point::FORTY->value,
         };
     }
 }
