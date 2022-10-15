@@ -35,4 +35,22 @@ class PlayerTest extends TestCase
         $this->player->increaseScore();
         $this->assertSame(1, $this->player->score());
     }
+
+    /**
+     * @dataProvider provideTimesOfIncreaseScore
+     */
+    public function test_have_a_multiple_increments_to_the_score(int $timesToIncrease): void
+    {
+        for ($i = 0; $i < $timesToIncrease; $i++){
+            $this->player->increaseScore();
+        }
+        $this->assertSame($timesToIncrease, $this->player->score());
+    }
+
+    public function provideTimesOfIncreaseScore(): \Generator
+    {
+        yield [ 100 ];
+        yield [ 25 ];
+        yield [ 50 ];
+    }
 }
