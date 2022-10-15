@@ -32,6 +32,6 @@ class Player
 
     public function isDeuce(Player $otherPlayer) : bool
     {
-        return true;
+        return $this->score === $otherPlayer->score();
     }
 }

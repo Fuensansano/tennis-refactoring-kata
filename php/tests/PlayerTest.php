@@ -54,8 +54,15 @@ class PlayerTest extends TestCase
         yield [ 50 ];
     }
 
-    public function test_player_should_know_if_is_deuce()
+    public function test_two_players_with_the_same_score_are_a_deuce()
     {
         $this->assertTrue($this->player->isDeuce(new Player(self::A_RANDOM_PLAYER_NAME)));
+    }
+
+    public function test_two_player_should_have_a_different_score()
+    {
+        $otherPlayer = new Player(self::A_RANDOM_PLAYER_NAME);
+        $otherPlayer->increaseScore();
+        $this->assertFalse($this->player->isDeuce($otherPlayer));
     }
 }
