@@ -65,4 +65,12 @@ class PlayerTest extends TestCase
         $otherPlayer->increaseScore();
         $this->assertFalse($this->player->isDeuce($otherPlayer));
     }
+
+    public function test_a_player_has_advantage_or_has_win()
+    {
+        $otherPlayer = new Player(self::A_RANDOM_PLAYER_NAME);
+        $this->assertTrue($this->player->hasAdvantageOrWin($otherPlayer));
+
+    }
+
 }

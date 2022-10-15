@@ -50,9 +50,9 @@ class TennisGame1 implements TennisGame
     private function deuce(): string
     {
         return match ($this->player1->score()) {
-            0 => Point::LOVE->value . '-' . GameStatus::ALL->value,
-            1 => Point::FIFTEEN->value . '-' . GameStatus::ALL->value,
-            2 => Point::THIRTY->value . '-' . GameStatus::ALL->value,
+            0 => sprintf("%s-%s", Point::LOVE->value, GameStatus::ALL->value),
+            1 => sprintf("%s-%s", Point::FIFTEEN->value, GameStatus::ALL->value),
+            2 => sprintf("%s-%s", Point::THIRTY->value, GameStatus::ALL->value),
             default => GameStatus::DEUCE->value,
         };
     }
@@ -60,28 +60,28 @@ class TennisGame1 implements TennisGame
 
     private function isDeuce(): bool
     {
-        return $this->player1->score() == $this->player2->score();
+        return $this->player1->isDeuce($this->player2);
     }
 
     private function advantage($minusResult): string
     {
         if ($minusResult == self::ADVANTAGE_POINT) {
-            return GameStatus::ADVANTAGE->value . ' ' . $this->player1->name();
+            return sprintf("%s %s", GameStatus::ADVANTAGE->value, $this->player1->name());
         }
-        return GameStatus::ADVANTAGE->value . ' ' . $this->player2->name();
+        return sprintf("%s %s", GameStatus::ADVANTAGE->value, $this->player2->name());
     }
 
     public function win(int $minusResult): string
     {
         if ($minusResult >= 2) {
-            return GameStatus::WIN->value . ' for ' . $this->player1->name();
+            return sprintf("%s for %s", GameStatus::WIN->value, $this->player1->name());
         }
 
-        return GameStatus::WIN->value . ' for ' . $this->player2->name();
+        return sprintf("%s for %s", GameStatus::WIN->value, $this->player2->name());
 
     }
 
-    public function getScoreByPlayer($playerScore): string
+    private function getScoreByPlayer($playerScore): string
     {
         return match ($playerScore) {
             0 => Point::LOVE->value,

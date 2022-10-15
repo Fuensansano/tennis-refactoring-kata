@@ -34,4 +34,9 @@ class Player
     {
         return $this->score === $otherPlayer->score();
     }
+
+    public function hasAdvantageOrWin($otherPlayer)
+    {
+        return false;
+    }
 }
